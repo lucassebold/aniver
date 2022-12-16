@@ -20,6 +20,14 @@ const MainCss = styled.div`
         font-family: sans-serif;
         background-color: #FFBF00;
 
+        #prev-btn, #next-btn{
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
         /* Book */
         .book {
             position: relative;
@@ -96,8 +104,8 @@ const MainCss = styled.div`
 
         /* Controller Buttons */
         button {
-            border: none;
-            background-color: transparent;
+          //  border: none;
+            //background-color: transparent;
             cursor: pointer;
             margin: 10px;
             transition: transform 0.5s;
@@ -271,7 +279,9 @@ const MainCss = styled.div`
 }
 `;
 
-const Main = () => {
+const Main = (props) => {
+
+    const { goPrevPage, goNextPage } = props;
 
     const callMysound = (src) => {
         const sound = new Howl({
@@ -282,13 +292,16 @@ const Main = () => {
         sound.play();
     }
     callMysound(music1);
+
     return (
         <MainCss className="main-css">
             {/* <button onClick={() => callMysound}>clica</button> */}
             <div className="body-main">
                 {/* <!-- Previous Button --> */}
-                <button id="prev-btn">
-                    <i className="fas fa-arrow-circle-left"></i>
+                <button id="prev-btn" onClick={goPrevPage}>
+                    <i className="material-icons">
+                        chevron_left
+                    </i>
                 </button>
                 {/* <!-- Book --> */}
                 <div id="book" className="book">
@@ -334,8 +347,10 @@ const Main = () => {
                 </div>
 
                 {/* Next Button */}
-                <button id="next-btn">
-                    <i className="fas fa-arrow-circle-right"></i>
+                <button id="next-btn" onClick={goNextPage}>
+                    <i className="material-icons">
+                        chevron_right
+                    </i>
                 </button>
             </div>
             <div className="firework" id="firework1">

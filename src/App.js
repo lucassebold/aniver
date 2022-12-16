@@ -38,10 +38,103 @@ function App() {
         setTimerHours(hours);
         setTimerMinutes(minutes);
         setTimerSeconds(seconds);
-       // console.log(seconds)
+        // console.log(seconds)
       }
     });
   };
+
+  // References to DOM Elements
+  const prevBtn = document.getElementById("prev-btn");
+  const nextBtn = document.getElementById("next-btn");
+  const book = document.getElementById("book");
+
+  const paper1 = document.getElementById("p1");
+  const paper2 = document.getElementById("p2");
+  const paper3 = document.getElementById("p3");
+
+  // Event Listener
+  // prevBtn.addEventListener("click", goPrevPage);
+  // nextBtn.addEventListener("click", goNextPage);
+
+  // Business Logic
+  let currentLocation = 1;
+  let numOfPapers = 3;
+  let maxLocation = numOfPapers + 1;
+
+  const openBook = () => {
+    if (book && prevBtn && nextBtn) {
+      book.style.transform = "translateX(50%)";
+      prevBtn.style.transform = "translateX(-180px)";
+      nextBtn.style.transform = "translateX(180px)";
+    }
+  }
+
+  const closeBook = (isAtBeginning) => {
+    if (book && prevBtn && nextBtn) {
+      if (isAtBeginning) {
+        book.style.transform = "translateX(0%)";
+      } else {
+        book.style.transform = "translateX(100%)";
+      }
+
+      prevBtn.style.transform = "translateX(0px)";
+      nextBtn.style.transform = "translateX(0px)";
+    }
+  }
+
+  const goNextPage = () => {
+    console.log('teste')
+    if (paper1 && paper2 && paper3) {
+      if (currentLocation < maxLocation) {
+        switch (currentLocation) {
+          case 1:
+            openBook();
+            paper1.classList.add("flipped");
+            paper1.style.zIndex = 1;
+            break;
+          case 2:
+            paper2.classList.add("flipped");
+            paper2.style.zIndex = 2;
+            break;
+          case 3:
+            paper3.classList.add("flipped");
+            paper3.style.zIndex = 3;
+            closeBook(false);
+            break;
+          default:
+            throw new Error("unkown state");
+        }
+      }
+      currentLocation++;
+    }
+  }
+
+  const goPrevPage = () => {
+    console.log('teste2')
+    if (paper1 && paper2 && paper3) {
+      if (currentLocation > 1) {
+        switch (currentLocation) {
+          case 2:
+            closeBook(true);
+            paper1.classList.remove("flipped");
+            paper1.style.zIndex = 3;
+            break;
+          case 3:
+            paper2.classList.remove("flipped");
+            paper2.style.zIndex = 2;
+            break;
+          case 4:
+            openBook();
+            paper3.classList.remove("flipped");
+            paper3.style.zIndex = 1;
+            break;
+          default:
+            throw new Error("unkown state");
+        }
+      }
+      currentLocation--;
+    }
+  }
 
   useEffect(() => {
     startTimer();
@@ -49,9 +142,12 @@ function App() {
 
   return (
     <div className="App">
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+        rel="stylesheet"></link>
+      <button onClick={() => window.location.reload(false)}>Click to reload!</button>
       {
         timerDays <= 0 && timerHours <= 0 && timerMinutes <= 0 && timerSeconds <= 0 ?
-          <Main />
+          <Main goPrevPage={goPrevPage} goNextPage={goNextPage} />
           :
           <Clock
             timerDays={timerDays}
