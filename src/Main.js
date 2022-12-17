@@ -283,15 +283,18 @@ const Main = (props) => {
 
     const { goPrevPage, goNextPage } = props;
 
-    const callMysound = (src) => {
-        const sound = new Howl({
-            src,
-            html5: true,
-            volume: 0.5
-        });
-        sound.play();
-    }
-    callMysound(music1);
+    // const callMysound = (src) => {
+    //     const sound = new Howl({
+    //         src,
+    //         html5: true,
+    //         volume: 0.5
+    //     });
+    //     sound.play();
+    // }
+    // callMysound(music1);
+
+    var audio = new Audio(music1);
+    audio.play();
 
     return (
         <MainCss className="main-css">

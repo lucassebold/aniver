@@ -144,7 +144,7 @@ function App() {
     <div className="App">
       <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
         rel="stylesheet"></link>
-      <button onClick={() => window.location.reload(false)}>Click to reload!</button>
+      <button style={{ zIndex: '10', position: 'absolute', top: '10px' }} onClick={() => window.location.reload(false)}>Recarregar</button>
       {
         timerDays <= 0 && timerHours <= 0 && timerMinutes <= 0 && timerSeconds <= 0 ?
           <Main goPrevPage={goPrevPage} goNextPage={goNextPage} />
