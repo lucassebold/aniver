@@ -1,5 +1,6 @@
 import React, { Fragment } from "react";
 import styled from "styled-components";
+import Main from "./Main";
 
 const Clocks = styled.div`
 .clock {
@@ -34,6 +35,7 @@ const Clocks = styled.div`
 `;
 
 const Clock = ({ timerDays, timerHours, timerMinutes, timerSeconds }) => {
+
     return (
         <Clocks>
             <section className="timer-container">

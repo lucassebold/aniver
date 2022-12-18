@@ -3,7 +3,8 @@ import styled from "styled-components";
 import { Fireworks } from 'fireworks-js'
 import { Howl, Howler } from 'howler';
 
-import music1 from './musica.mp3'
+import bolo from './bolo.png'
+import casal from './eueela.jpeg'
 
 const MainCss = styled.div`
     position: absolute;
@@ -19,7 +20,6 @@ const MainCss = styled.div`
         width: 100%;
         font-family: sans-serif;
         background-color: #FFBF00;
-
         #prev-btn, #next-btn{
             width: 40px;
             height: 40px;
@@ -27,14 +27,12 @@ const MainCss = styled.div`
             align-items: center;
             justify-content: center;
         }
-
         /* Book */
         .book {
             position: relative;
             width: 350px;
             height: 500px;
             transition: transform 0.5s;
-
             .paper {
                 position: absolute;
                 width: 100%;
@@ -44,7 +42,6 @@ const MainCss = styled.div`
                 perspective: 1500px;
         
             }
-
             /* Paper stack order */
             #p1 {
                 z-index: 3;
@@ -99,9 +96,7 @@ const MainCss = styled.div`
                 transform: rotateY(-180deg);
             }
         }
-
         
-
         /* Controller Buttons */
         button {
           //  border: none;
@@ -110,21 +105,17 @@ const MainCss = styled.div`
             margin: 10px;
             transition: transform 0.5s;
         }
-
         button:focus {
             outline: none;
         }
-
         button:hover i {
             color: #636363;
         }
-
         i {
             font-size: 50px;
             color: gray;
         }
     }
-
     .firework {
         position: absolute;
         z-index: 10;
@@ -280,39 +271,34 @@ const MainCss = styled.div`
 `;
 
 const Main = (props) => {
+    const [showResults, setShowResults] = React.useState(false)
+    const onClick = () => setShowResults(true)
 
-    const { goPrevPage, goNextPage } = props;
-
-    // const callMysound = (src) => {
-    //     const sound = new Howl({
-    //         src,
-    //         html5: true,
-    //         volume: 0.5
-    //     });
-    //     sound.play();
-    // }
-    // callMysound(music1);
-
-    var audio = new Audio(music1);
-    audio.play();
+    const opacitynivel = () => {
+        const casal = document.getElementsByClassName('.casal-img');
+        casal.style.display = 'flex';
+    }
 
     return (
         <MainCss className="main-css">
             {/* <button onClick={() => callMysound}>clica</button> */}
             <div className="body-main">
                 {/* <!-- Previous Button --> */}
-                <button id="prev-btn" onClick={goPrevPage}>
-                    <i className="material-icons">
-                        chevron_left
-                    </i>
-                </button>
                 {/* <!-- Book --> */}
                 <div id="book" className="book">
                     {/* <!-- Paper 1 --> */}
                     <div id="p1" className="paper">
                         <div className="front">
-                            <div id="f1" className="front-content">
-                                <h1>Front 1</h1>
+                            <div style={{ display: 'flex', flexDirection: 'column' }} id="f1" className="front-content">
+                                <img style={{ width: '250px' }} src={bolo} onClick={onClick} />
+                                {
+                                    showResults ?
+                                        <img className="casal-img" style={{ width: '450px', position: 'absolute' }} src={casal} />
+                                        :
+                                        ''
+                                }
+                                <h1 style={{ margin: '25px 5px' }}>Parabéns meu amooor</h1>
+                                <h1 style={{ margin: '0px 5px' }}>Hoje é seu aniversáriuuuu</h1>
                             </div>
                         </div>
                         <div className="back">
@@ -348,13 +334,6 @@ const Main = (props) => {
                         </div>
                     </div>
                 </div>
-
-                {/* Next Button */}
-                <button id="next-btn" onClick={goNextPage}>
-                    <i className="material-icons">
-                        chevron_right
-                    </i>
-                </button>
             </div>
             <div className="firework" id="firework1">
                 <div className="explosion"></div>
